@@ -1,0 +1,159 @@
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="content-language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta content="never" name="referrer">
+
+    <!-- https://github.com/Dogfalo/materialize -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/materialize/1.0.0/css/materialize.min.css"
+        type="text/css" rel="stylesheet" />
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-y/materialize/1.0.0/js/materialize.js"
+        type="application/javascript"></script>
+
+    <link href="./Res/Chat.css" type="text/css" rel="stylesheet" />
+    <script src="./Res/Chat.js" type="application/javascript"></script>
+    <script src="./Res/TesterData.js" type="application/javascript"></script>
+
+    <title>对话 - RWKVServer</title>
+
+
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+
+    <main>
+        <div id="div_Output">
+            <div id="div_Output_Confirmed">
+
+            </div>
+            <div class="Spliter">
+                <hr><span>当前未决内容</span>
+            </div>
+            <div id="div_Output_Pending">
+                <div class="Message" character="User">
+                    <div class="Avatar"><img class="Avatar" src="/Save/Avatar/主人.png"
+                            onerror="this.style.display='none'" style="display: none;"><i>主人</i>
+                        <div></div>
+                    </div>
+                    <div class="Content">
+                        <ul id="GenerateSelecter" class="collection">
+                            <li class="collection-item">Alvin</li>
+                            <li class="collection-item">Alvin</li>
+                            <li class="collection-item">Alvin</li>
+                            <li class="collection-item">Alvin</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="div_Output_LineInOption">
+            </div>
+            <div class="ControlPanel">
+                <a class="waves-effect waves-light col s1 btn deep-orange lighten-1" onclick="Chat.SaveToLog()">保存回放</a>
+                <a class="waves-effect waves-light col s1 btn orange lighten-1" onclick="Chat.UndoLine()">撤销上一条</a>
+                <a class="waves-effect waves-light col s1 btn red lighten-1"
+                    onclick="Chat.NoGoodBackAgain()">丢弃未决内容</a>
+                <a class="waves-effect waves-light col s1 btn teal lighten-1"
+                    onclick="Chat.SaveAndContinue()">认可并继续推进</a>
+                <a class="btn waves-effect waves-light blue" onclick="Chat.ForceRefresh()">强制刷新</a></li>
+                </ul>
+            </div>
+        </div>
+        <ul id="ul_Chat" class="collapsible">
+            <li id="li_SimpleChat" class="active">
+                <div class="collapsible-header">快速</div>
+                <div class="collapsible-body">
+                    <div class="flex-row">
+                        <div id="div_SimpleChat_UserName" class="input-field"></div>
+                        <div class="input-field grow">
+                            <input id="ipt_Chat_Message_0" type="text" class="Chat_Message">
+                            <label for="ipt_Chat_Message_0">动作与对话</label>
+                        </div>
+                        <a class="waves-effect waves-light btn indigo darken-1" onclick="Chat.UI_Chat(0)">发送</a>
+                    </div>
+                </div>
+            </li>
+            <li id="li_AdvChat">
+                <div class="collapsible-header">高级</div>
+                <div class="collapsible-body">
+                    <div class="flex-row">
+                        <div class="input-field">
+                            <select id="slct_Chat_MessageFrom_1" class="icons CharacterSelecter">
+                                <optgroup class="User" label="你的角色卡"></optgroup>
+                                <optgroup class="AI" label="AI的角色卡"></optgroup>
+                                <optgroup label="其他">
+                                    <option value="旁白">旁白</option>
+                                    <option value="路人">路人</option>
+                                </optgroup>
+                            </select>
+                            <label>人物</label>
+                        </div>
+                        <div class="input-field grow">
+                            <textarea id="ipt_Chat_Message_1" class="Chat_Message materialize-textarea"
+                                ipt-id="1"></textarea>
+                            <label for="ipt_Chat_Message_1">动作与对话</label>
+                        </div>
+                        <a class="waves-effect waves-light btn indigo darken-1" onclick="Chat.UI_Chat(1)">发送</a>
+                    </div>
+                    <div class="flex-row">
+                        <div class="input-field">
+                            <select id="slct_Chat_MessageFrom_Generate" class="icons CharacterSelecter">
+                                <optgroup class="User" label="你的角色卡"></optgroup>
+                                <optgroup class="AI" label="AI的角色卡"></optgroup>
+                                <optgroup label="其他">
+                                    <option value="旁白">旁白</option>
+                                    <option value="路人">路人</option>
+                                </optgroup>
+                            </select>
+                            <label>人物</label>
+                        </div>
+                        <div class="input-field grow">
+                            <textarea id="ipt_Chat_Message_Generate" class="Chat_Message materialize-textarea"
+                                ipt-id="-1"></textarea>
+                            <label for="ipt_Chat_Message_GenerateIntro">动作与对话</label>
+                        </div>
+                        <a class="waves-effect waves-light col s1 btn indigo darken-1"
+                            onclick="Chat.UI_StartGenerate(true)">生成</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </main>
+    <div id="modal_EditGenerated" class="modal bottom-sheet">
+        <div class="modal-content">
+            <div class="flex-row">
+                <div class="input-field" style="display: none;">
+                    <select id="slct_Chat_MessageFrom_EditGenerated" class="icons CharacterSelecter">
+                        <optgroup class="User" label="你的角色卡"></optgroup>
+                        <optgroup class="AI" label="AI的角色卡"></optgroup>
+                        <optgroup label="其他">
+                            <option value="旁白">旁白</option>
+                            <option value="路人">路人</option>
+                        </optgroup>
+                    </select>
+                    <label>人物</label>
+                </div>
+                <div class="input-field grow">
+                    <textarea id="ipt_Chat_Message_EditGenerated" class="Chat_Message materialize-textarea"
+                        ipt-id="1"></textarea>
+                    <label for="ipt_Chat_Message_EditGenerated">动作与对话</label>
+                </div>
+                <a class="waves-effect waves-light btn indigo darken-1"
+                    onclick="Chat.UI_ApplyGeneratedOption_AdvModal()">发送</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', Chat.Init(true))
+</script>
+
+</html>

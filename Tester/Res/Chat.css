@@ -1,0 +1,323 @@
+/* @font-face {
+    font-family: "XiaoLai";
+    src: url("./Yozai-Medium.ttf");
+} */
+
+html,
+body {
+    background-color: #222;
+    color: #FFF;
+    font-size: 18px;
+    font-family: XiaoLai;
+    line-break: anywhere;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: -webkit-fill-available;
+    height: -moz-fill-available;
+}
+
+div.modal {
+    overflow: visible;
+}
+
+#div_Output {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#div_Output>.ControlPanel {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+}
+
+#div_Output>.ControlPanel>.btn {
+    font-size: 1.25rem;
+    margin: .25rem;
+}
+
+#div_Output>.ControlPanel .fixed-action-btn.toolbar {
+    position: absolute;
+    right: 1rem;
+
+}
+
+#div_Output>.ControlPanel .btn-floating {
+    margin: .8rem;
+    width: 3em;
+    height: 3em;
+    line-height: 3em;
+}
+
+#div_Output>.Spliter {
+    position: relative;
+}
+
+#div_Output>.Spliter hr {
+    width: -webkit-fill-available;
+    width: -moz-fill-available;
+}
+
+#div_Output>.Spliter span {
+    position: absolute;
+    left: calc(50% - 3em);
+    top: -.7em;
+    padding: .5em;
+    background-color: #222;
+}
+
+#div_Output>div>.Message {
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+    position: relative;
+}
+
+#div_Output>div>.Message[character="Narrator"] {
+    justify-content: center;
+}
+
+#div_Output>div>.Message[character="User"] {
+    flex-direction: row-reverse;
+}
+
+#div_Output>div>.Message::after {
+    content: attr(tag);
+    position: absolute;
+    left: 12%;
+    bottom: .25em;
+    font-size: .5rem;
+}
+
+#div_Output>div>.Message>.Avatar {
+    position: relative;
+    width: 11%;
+    aspect-ratio: 1;
+    height: fit-content;
+    min-width: 5em;
+    border: .2rem solid;
+    overflow: hidden;
+    text-align: center;
+}
+
+#div_Output>div>.Message>div.Avatar>img {
+    width: auto;
+    height: 100%;
+    z-index: 100;
+    position: relative;
+}
+
+#div_Output>div>.Message>div.Avatar>i {
+    position: absolute;
+    font-size: 1.5rem;
+    top: calc(50% - .75em);
+    bottom: calc(50% - .75em);
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+#div_Output>div>.Message>.Content {
+    font-size: 1.25rem;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 78%;
+}
+
+#div_Output>div>.Message[character="System"]>.Content {
+    text-align: center;
+    width: -webkit-fill-available;
+}
+
+#div_Output>div>.Message[character="Narrator"]>.Content {
+    text-align: center;
+    background-color: #777;
+    padding: 1.25em 2em;
+}
+
+#div_Output>div>.Message[character="User"]>.Content {
+    text-align: center;
+    background-color: #8AF;
+}
+
+#div_Output>div>.Message[character="User"]>div.Avatar {
+    border-color: #8AF;
+    border-left: none;
+    background-color: #8AF;
+}
+
+#div_Output>div>.Message[character="AI"]>.Content {
+    text-align: center;
+    background-color: #F88;
+}
+
+#div_Output>div>.Message[character="AI"]>div.Avatar {
+    border-color: #F88;
+    border-right: none;
+    background-color: #F88;
+}
+
+#div_Output>.Message>.Content {}
+
+#div_Output #GeneratedSelecter {
+    width: 98%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    border: #FFFD solid 0.1rem;
+}
+
+#div_Output .Message #GeneratedSelecter li {
+    background-color: transparent;
+    user-select: none;
+    display: flex;
+    flex-wrap: nowrap;
+    color: #FFFD;
+    line-height: 1.5em;
+    font-size: 1.25rem;
+    height: auto;
+    border-bottom: #FFFD solid 0.1rem;
+}
+
+#div_Output .Message #GeneratedSelecter li[type="Generating"] {
+    justify-content: center;
+    align-items:center;
+}
+
+#div_Output .Message #GeneratedSelecter li[type="Generated"] {
+    justify-content: space-between;
+    align-items: baseline;
+}
+#div_Output .Message #GeneratedSelecter li[type="Generated"]>div.Content{
+    flex-grow: 1;
+}
+
+#div_Output .Message #GeneratedSelecter li[type="Generated"]>a.btn {
+    font-size: inherit;
+    line-height: 1.2em;
+    height: 1.2em;
+    opacity: .25;
+}
+
+#div_Output .Message #GeneratedSelecter li[type="Generated"]>a.btn:hover {
+    opacity: 1;
+}
+
+#div_Output .Message #GeneratedSelecter li[type="Generated"]:hover {
+    background-color: #FFFD;
+}
+
+#div_Output .Message[character="User"] #GeneratedSelecter li[type="Generated"]:hover {
+    background-color: #FFFD;
+    color: #8AF;
+}
+
+#div_Output .Message[character="AI"] #GeneratedSelecter li[type="Generated"]:hover {
+    background-color: #FFFD;
+    color: #F88;
+}
+
+#div_Output .Message #GeneratedSelecter li.More {
+    border-bottom: none;
+    justify-content: center;
+    order: 9999;
+}
+
+#div_Output .Message #GeneratedSelecter li.More>a{
+    color: #FFF;
+    background-color: #FFF2;
+}
+
+#ul_Chat {
+    margin: 0;
+}
+
+.collapsible,
+.collapsible-header,
+.collapsible-body {
+    background-color: transparent;
+}
+
+.modal.bottom-sheet>* {
+    background-color: #333;
+}
+
+#ul_Chat {
+    margin: 0;
+    background-color: #333;
+}
+
+#ul_Chat li .collapsible-header {
+    padding: .25rem;
+    font-weight: 700;
+    background-color: #555;
+}
+
+#ul_Chat li .collapsible-header::before {
+    content: "○";
+    margin: 0 .25rem;
+}
+
+#ul_Chat li.active .collapsible-header::before {
+    content: "■";
+}
+
+#ul_Chat li .collapsible-body {
+    padding: 1rem;
+}
+
+div.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+div.flex-row>* {
+    margin: .5rem 1rem;
+}
+
+div.flex-row>.grow {
+    flex-grow: 1;
+}
+
+#ul_Chat li .input-field li {
+    background-color: #555;
+}
+
+.input-field .select-dropdown,
+.input-field span,
+.input-field input,
+textarea,
+a.btn {
+    font-size: 1rem;
+    font-family: XiaoLai;
+    color: #FFF;
+}
+
+.spinner-layer.spinner-white-only {
+    border-color: #FFF;
+}
+
+@media screen and (max-width:720px) {
+
+    html,
+    body {
+        font-size: 10px;
+    }
+}

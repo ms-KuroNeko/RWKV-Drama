@@ -1,0 +1,100 @@
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="content-language" content="zh-CN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+
+    <!-- https://github.com/Dogfalo/materialize -->
+    <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/materialize/1.0.0/css/materialize.min.css"
+        type="text/css" rel="stylesheet" />
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-y/materialize/1.0.0/js/materialize.js"
+        type="application/javascript"></script>
+        
+        
+    <script src="./Res/NewChat.js" type="application/javascript"></script>
+    
+    <title>剧本 - RWKVServer</title>
+
+
+    <style>
+        html,
+        body {
+            font-size: large;
+        }
+
+        main {
+            margin: 1rem;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main>
+        <ul id="tabs-swipe-demo" class="tabs">
+            <li class="tab col s3"><a href="#test-swipe-1">新建剧本</a></li>
+            <li class="tab col s3"><a class="active" href="#test-swipe-2">由JSON导入</a></li>
+            <li class="tab col s3"><a href="#test-swipe-3">载入旧对话</a></li>
+        </ul>
+        <div id="test-swipe-1" class="col s12">
+            <a class="waves-effect waves-light btn" onclick="NewChat.LoadFromJSON()">从JSON导入</a>
+            <div class="input-field ">
+                <input id="ipt_ScenarioSeries" type="text">
+                <label for="ipt_ScenarioSeries">剧本系列</label>
+            </div>
+            <div class="input-field ">
+                <input id="ipt_ScenarioName" type="text">
+                <label for="ipt_ScenarioName">剧本名称</label>
+            </div>
+            <div class="input-field">
+                <textarea id="txtara_Prompt" class="materialize-textarea"></textarea>
+                <label for="txtara_Prompt">背景</label>
+            </div>
+            <div class="input-field">
+                <textarea id="txtara_Example" class="materialize-textarea"></textarea>
+                <label for="txtara_Example">前置剧情</label>
+            </div>
+            <h5>强制左侧角色</h5>
+            <div id="chips_AI" class="chips">
+                <input class="custom-class">
+            </div>
+            <h5>强制右侧角色</h5>
+            <div id="chips_User" class="chips">
+                <input class="custom-class">
+            </div>
+            <a class="waves-effect waves-light btn" onclick="NewChat.LoadPrompt()">提交并开始</a>
+        </div>
+        <div id="test-swipe-2" class="col s12">
+            <h2>加载剧本</h2>
+            <a class="waves-effect waves-light btn" onclick="NewChat.SendJSON()">提交</a>
+            <div class="input-field">
+                <textarea id="txtara_JSON" class="materialize-textarea"></textarea>
+                <label for="txtara_JSON">剧本JSON</label>
+            </div>
+        </div>
+        <div id="test-swipe-3" class="col s12">
+            <h2>加载旧对话</h2>
+            <a class="waves-effect waves-light btn" onclick="NewChat.SendLog()">提交</a>
+            <div class="input-field">
+                <textarea id="txtara_JSONLog" class="materialize-textarea"></textarea>
+                <label for="txtara_JSONLog">历史剧本</label>
+            </div>
+        </div>
+    </main>
+
+
+
+
+</body>
+<script>
+
+    document.addEventListener('DOMContentLoaded', M.AutoInit())
+
+</script>
+
+</html>
